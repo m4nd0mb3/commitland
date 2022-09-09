@@ -10,14 +10,55 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:commitland.helloWorld"
+    "onCommand:commitland.commitLand"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "commitland.helloWorld",
-        "title": "Hello World"
+        "command": "commitland.commitLand",
+        "title": "Commit Land"
+      },
+      {
+        "command": "commitland.start",
+        "title": "Start new cat coding session",
+        "category": "Cat Coding"
+      }
+    ],
+    "viewsWelcome": [
+      {
+        "view": "commitland-dependencies",
+        "contents": "In order to use git features, you can open a folder containing a git repository or clone from a URL.\n[Open Folder](command:vscode.openFolder)\n[Start](command:commitland.start)\nTo learn more about how to use git and source control in VS Code [read our docs](https://aka.ms/vscode-scm).",
+        "when": "config.git.enabled && git.state == initialized && workbenchState == empty"
+      },
+      {
+        "view": "commitland-dependencies",
+        "contents": "In order to use git features, you can open a folder containing a git repository or clone from a URL.\n[Open Folder](command:vscode.openFolder)\n[Clone Repository](command:git.clone)\nTo learn more about how to use git and source control in VS Code [read our docs](https://aka.ms/vscode-scm).",
+        "when": "config.git.enabled && git.state == initialized && workbenchState == empty"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "commit-land",
+          "title": "Commit Land",
+          "icon": "./resources/img/business-rules-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "commit-land": [
+        {
+          "id": "commitland-dependencies",
+          "name": "Dependencies"
+        }
+      ]
+    },
+    "view/item/context": [
+      {
+        "command": "commitland.start",
+        "when": "view == nodeDependencies && viewItem == dependency",
+        "group": "inline"
       }
     ]
   },
